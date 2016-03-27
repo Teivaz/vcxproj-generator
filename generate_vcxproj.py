@@ -1,7 +1,7 @@
 import os, uuid
 
 HEADER_EXT = ['.h', '.inl', '.hpp']
-SOURCE_EXT = ['.c', 'cc', '.cpp']
+SOURCE_EXT = ['.c', '.cc', '.cpp']
 
 def UUID(name):
     return str(uuid.uuid3(uuid.NAMESPACE_OID, name)).upper()
@@ -11,7 +11,7 @@ def IsDebug(configuration):
 
 def FilterFromPath(path):
     (head, tail) = os.path.split(path)
-    head = head.replace('..\\', '').replace('.\\', '')
+    head = head.replace('/', '\\').replace('..\\', '').replace('.\\', '')
     if head == '' or head == '.':
         return ''
     return head
@@ -144,29 +144,35 @@ class Filters:
 
 class Generator:
     Folders = set()
-    Includes = []
-    Sources = []
-    Platforms = []
-    Configurations = []
+    Includes = set()
+    Sources = set()
+    Platforms = set()
+    Configurations = set()
     Name = ''
 
     def __init__(self, name, platforms, configurations):
         self.Name = name
         for platform in platforms:
-            self.Platforms.append(platform)
+            self.Platforms.add(platform)
         for configuration in configurations:
-            self.Configurations.append(configuration)
+            self.Configurations.add(configuration)
 
     def AddFolder(self, path):
         filt = FilterFromPath(path)
-        if filt != '':
+        if filt == '':
+            return
+        if filt not in self.Folders:
             self.Folders.add(filt)
+            filters = ''
+            for f in os.path.split(filt):
+                filters = os.path.join(filters, f)
+                self.Folders.add(filters)
 
     def AddSource(self, path):
-        self.Sources.append(path)
+        self.Sources.add(path)
 
     def AddHeader(self, path):
-        self.Includes.append(path)
+        self.Includes.add(path)
 
     def AddFile(self, path):
         (root, ext) = os.path.splitext(path)
@@ -256,9 +262,10 @@ class Generator:
         f.write(self.CreateFilters())
         f.close()
 
-def main(path, name, platforms, configurations):
+def main(paths, name, platforms, configurations):
     generator = Generator(name, platforms, configurations)
-    generator.Walk('.')
+    for path in paths:
+        generator.Walk(path)
     generator.Generate()
 
-main('.', 'Test', ['Win32'], ['Debug', 'Release'])
+main(['.'], 'Test', ['Win32'], ['Debug', 'Release'])
