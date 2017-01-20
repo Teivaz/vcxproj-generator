@@ -8,7 +8,7 @@ Script will recursively search for the C++ files starting from current directory
 3. Run it
 4. Star [this](https://github.com/Teivaz/vcxproj-generator) repo
 
-![step one][http://static.teivaz.com/vcxproj-generator/step1.png] ![step two][http://static.teivaz.com/vcxproj-generator/step2.png] ![step three][http://static.teivaz.com/vcxproj-generator/step3.png] ![step four][http://static.teivaz.com/vcxproj-generator/step4.png]
+![take a set of source files](http://static.teivaz.com/vcxproj-generator/step1.png) ![copy this script there](http://static.teivaz.com/vcxproj-generator/step2.png) ![run it](http://static.teivaz.com/vcxproj-generator/step3.png) ![enjoy your project](http://static.teivaz.com/vcxproj-generator/step4.png)
 
 ## Settings
 In case you need to customize you have following settings:
