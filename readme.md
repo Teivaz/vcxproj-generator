@@ -3,7 +3,7 @@
 Script will recursively search for the C++ files starting from current directory. All files found will be placed included in the project file. Also will generate `.filters` file to preserv folder structure within project.
 
 ## Usage
-1. Download script [here](www)
+1. Download script [here](https://rawgit.com/Teivaz/vcxproj-generator/master/generate_vcxproj.py)
 2. Put it to the root folder of your sources
 3. Run it    
 
