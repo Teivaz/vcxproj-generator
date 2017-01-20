@@ -5,7 +5,10 @@ Script will recursively search for the C++ files starting from current directory
 ## Usage
 1. Download script [here](https://rawgit.com/Teivaz/vcxproj-generator/master/generate_vcxproj.py)
 2. Put it to the root folder of your sources
-3. Run it    
+3. Run it
+4. Star [this](https://github.com/Teivaz/vcxproj-generator) repo
+
+![step one][http://static.teivaz.com/vcxproj-generator/step1.png] ![step two][http://static.teivaz.com/vcxproj-generator/step2.png] ![step three][http://static.teivaz.com/vcxproj-generator/step3.png] ![step four][http://static.teivaz.com/vcxproj-generator/step4.png]
 
 ## Settings
 In case you need to customize you have following settings:
