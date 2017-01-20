@@ -18,15 +18,28 @@ freely, subject to the following restrictions:
 @authors: Teivaz [github.com/Teivaz]
 '''
 
-import os, uuid
+# Script settings
 
 PATHS_TO_SEARCH = ['.']
-PROJECT = '' # by default will use ccurrent directory name
+PROJECT_NAME = '' # by default will use ccurrent directory name
 PLATFORMS = ['Win32']
 CONFIGURATIONS = ['Debug', 'Release']
 
 HEADER_EXT = ['.h', '.inl', '.hpp']
 SOURCE_EXT = ['.c', '.cc', '.cpp']
+VS_VERSION = '2013' # 2013 or 2015
+
+
+# Script starts here
+import os, uuid
+
+def Toolset():
+    versions = {
+        '2013': '12',
+        '2015': '14',
+    }
+    #defaults to vs2013
+    return versions.get(VS_VERSION, '12')
 
 def UUID(name):
     return str(uuid.uuid3(uuid.NAMESPACE_OID, name)).upper()
@@ -43,7 +56,7 @@ def FilterFromPath(path):
 
 class Vcxproj:
     Header = '<?xml version="1.0" encoding="utf-8"?>'
-    Project0 = '<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">'
+    Project0 = '<Project DefaultTargets="Build" ToolsVersion="{}.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">'.format(Toolset())
     Project1 = '</Project>'
     ProjectConfigurations0 = '  <ItemGroup Label="ProjectConfigurations">'
     ProjectConfigurations1 = '  </ItemGroup>'
@@ -64,7 +77,7 @@ class Vcxproj:
             '  <PropertyGroup Condition="\'$(Configuration)|$(Platform)\'==\'{0}|{1}\'" Label="Configuration">',
             '    <ConfigurationType>Application</ConfigurationType>',
             '    <UseDebugLibraries>{2}</UseDebugLibraries>',
-            '    <PlatformToolset>v120</PlatformToolset>',
+            '    <PlatformToolset>v{}0</PlatformToolset>'.format(Toolset()),
             '    <CharacterSet>MultiByte</CharacterSet>',
             '  </PropertyGroup>'])
     # configuration, platform
@@ -296,4 +309,4 @@ def main(paths, name, platforms, configurations):
         generator.Walk(path)
     generator.Generate()
 
-main(PATHS_TO_SEARCH, PROJECT, PLATFORMS, CONFIGURATIONS)
+main(PATHS_TO_SEARCH, PROJECT_NAME, PLATFORMS, CONFIGURATIONS)
