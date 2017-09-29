@@ -21,13 +21,13 @@ freely, subject to the following restrictions:
 # Script settings
 
 PATHS_TO_SEARCH = ['.']
-PROJECT_NAME = '' # by default will use ccurrent directory name
+PROJECT_NAME = '' # by default will use current directory name
 PLATFORMS = ['Win32']
 CONFIGURATIONS = ['Debug', 'Release']
 
 HEADER_EXT = ['.h', '.inl', '.hpp']
 SOURCE_EXT = ['.c', '.cc', '.cpp']
-VS_VERSION = '2013' # 2013 or 2015
+VS_VERSION = '2015' # 2013 or 2015
 
 
 # Script starts here
